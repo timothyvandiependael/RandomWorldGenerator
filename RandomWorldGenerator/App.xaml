@@ -1,0 +1,9 @@
+﻿<Application x:Class="RandomWorldGenerator.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:RandomWorldGenerator"
+             StartupUri="SetupWorld.xaml" ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+         <ResourceDictionary Source="res/SetupWorldRes.xaml"/>
+    </Application.Resources>
+</Application>
