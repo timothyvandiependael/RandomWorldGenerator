@@ -258,6 +258,7 @@ namespace RandomWorldGenerator
                         goY += 1;
                     sourceDirection = 0;
                     break;
+
                 case 3:
                     grens = 0;
                     if (goX != grens)
