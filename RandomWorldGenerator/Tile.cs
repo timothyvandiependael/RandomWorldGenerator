@@ -13,37 +13,57 @@ namespace RandomWorldGenerator
         public static int Afmeting { get; set; }
         public Rectangle Inhoud { get; set; }
 
-        private Color _kleur;
-        public Color Kleur
+        private Brush _kleur;
+        public Brush Kleur
         {
             get { return _kleur; }
 
             set
             {
-                Inhoud.Fill = new SolidColorBrush(value);
+                Inhoud.Fill = value;
                 _kleur = value;
             }
         }
-        public string CenterPoint { get; set; }
+        public Brush CenterPoint { get; set; }
         public bool OnMap { get; set; }
 
-        public Tile(Color kleur)
+        public Tile(SolidColorBrush kleur)
         {
             Inhoud = new Rectangle();
             Inhoud.Width = Afmeting;
             Inhoud.Height = Afmeting;
             Kleur = kleur;
-            CenterPoint = "";
+            CenterPoint = new ImageBrush();
             OnMap = true;
         }
 
-        public Tile(Color kleur, bool onboard)
+        public Tile(ImageBrush brush)
+        {
+            Inhoud = new Rectangle();
+            Inhoud.Width = Afmeting;
+            Inhoud.Height = Afmeting;
+            Kleur = brush;
+            CenterPoint = new ImageBrush();
+            OnMap = true;
+        }
+
+        public Tile(SolidColorBrush kleur, bool onboard)
         {
             Inhoud = new Rectangle();
             Inhoud.Width = Afmeting;
             Inhoud.Height = Afmeting;
             Kleur = kleur;
-            CenterPoint = "";
+            CenterPoint = new ImageBrush();
+            OnMap = onboard;
+        }
+
+        public Tile(ImageBrush brush, bool onboard)
+        {
+            Inhoud = new Rectangle();
+            Inhoud.Width = Afmeting;
+            Inhoud.Height = Afmeting;
+            Kleur = brush;
+            CenterPoint = new ImageBrush();
             OnMap = onboard;
         }
     }

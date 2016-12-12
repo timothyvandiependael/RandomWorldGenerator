@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RandomWorldGenerator"
         mc:Ignorable="d"
         Title="SetupWorld" Height="500" Width="800" WindowStartupLocation="CenterScreen">
-    <StackPanel Orientation="Vertical">
+    <StackPanel  Name="Paneel" Orientation="Vertical">
         
         <Label Content="WORLD OPTIONS" HorizontalAlignment="Center" FontSize="24" FontWeight="Black" Margin="10 10 10 20"/>
         
@@ -53,9 +53,9 @@
             
 
         </Grid>
-        
+
         <Button Name="BtnGenerate" Content="Generate" Margin="5" Width="100" Click="BtnGenerate_Click"/>
-        
+
     </StackPanel>
 
 </Window>

@@ -26,6 +26,8 @@ namespace RandomWorldGenerator
 
         public bool OutOfOriginalLake;
 
+        private ImageBrush blauw;
+
         public RandomWorldGeneratorWindow GenerateMapGrid()
         {
 
@@ -86,6 +88,17 @@ namespace RandomWorldGenerator
 
         }
 
+        private ImageBrush GenerateMapTileImage(int x, int y)
+        {
+            TileReader test = new TileReader(new System.Drawing.Bitmap(@"..\..\img\tilea5.png"), 512, 256, 8, 16);
+            test.ListTilesFromImage();
+            ImageBrush im = new ImageBrush();
+            im.ImageSource =
+                test.LoadBitmap(test.Tiles[x, y]);
+
+            return im;
+        }
+
         public void GenerateEmptyTilesAndCenterPoints()
         {
             Tiles = new Tile[CurrentWorld.Width, CurrentWorld.Height];
@@ -93,12 +106,22 @@ namespace RandomWorldGenerator
 
             Brushes = new List<Brush>();
 
-            Brushes.Add(new SolidColorBrush(Colors.Yellow));
-            Brushes.Add(new SolidColorBrush(Colors.Green));
-            Brushes.Add(new SolidColorBrush(Colors.LawnGreen));
-            Brushes.Add(new SolidColorBrush(Colors.Brown));
-            Brushes.Add(new SolidColorBrush(Colors.Blue));
-            Brushes.Add(new SolidColorBrush(Colors.White));
+            //Brushes.Add(new SolidColorBrush(Colors.Yellow));
+            //Brushes.Add(new SolidColorBrush(Colors.Green));
+            //Brushes.Add(new SolidColorBrush(Colors.LawnGreen));
+            //Brushes.Add(new SolidColorBrush(Colors.Brown));
+            //Brushes.Add(new SolidColorBrush(Colors.Blue));
+            //Brushes.Add(new SolidColorBrush(Colors.White));
+
+            blauw = GenerateMapTileImage(7, 2);
+
+            Brushes.Add(GenerateMapTileImage(0,6));
+            Brushes.Add(GenerateMapTileImage(4,6));
+            Brushes.Add(GenerateMapTileImage(6,10));
+            Brushes.Add(GenerateMapTileImage(5,2));
+            Brushes.Add(blauw);
+            Brushes.Add(GenerateMapTileImage(3,6));
+
 
             UsedBrushes = new List<Brush>();
 
@@ -108,7 +131,7 @@ namespace RandomWorldGenerator
             {
                 for (int y = 0; y < CurrentWorld.Height; y++)
                 {
-                    Tile tegel = new Tile(Colors.Black);
+                    Tile tegel = new Tile(new SolidColorBrush(Colors.Black));
                     Tiles[x, y] = tegel;
 
                     RngResult = Rng.Next(0, CurrentWorld.BiomeSize + 1);
@@ -128,8 +151,8 @@ namespace RandomWorldGenerator
                         UsedBrushes.Add(tempKleur);
                         Brushes.RemoveAt(welkeKleur);
 
-                        tegel.CenterPoint = tempKleur.ToString();
-                        tegel.Kleur = ((SolidColorBrush)tempKleur).Color;
+                        tegel.CenterPoint = tempKleur;
+                        tegel.Kleur = tempKleur;
 
                         CenterTiles[x, y] = tegel;
 
@@ -145,7 +168,7 @@ namespace RandomWorldGenerator
                 for (int y = 0; y < CurrentWorld.Height; y++)
                 {
                     int kortsteAfstand = 0;
-                    Color kortsteAfstandKleur = Colors.Black;
+                    Brush kortsteAfstandKleur = new SolidColorBrush(Colors.Black);
 
                     for (int xc = 0; xc < CurrentWorld.Width; xc++)
                     {
@@ -205,13 +228,11 @@ namespace RandomWorldGenerator
         public void AddRiversToMap()
         {
 
-            Brush blauw = new SolidColorBrush(Colors.Blue);
-
             for (int x = 0; x < CurrentWorld.Width; x++)
             {
                 for (int y = 0; y < CurrentWorld.Height; y++)
                 {
-                    if (Tiles[x, y].CenterPoint == blauw.ToString())
+                    if (Equals(((ImageBrush)Tiles[x, y].CenterPoint).ImageSource, blauw.ImageSource))
                     {
                         RngResult = Rng.Next(0, 1);
 
@@ -268,14 +289,14 @@ namespace RandomWorldGenerator
 
             if (OutOfOriginalLake)
             {
-                if (Tiles[goX, goY].Kleur == Colors.Blue)
+                if (Equals(((ImageBrush)Tiles[goX, goY].Kleur).ImageSource, blauw.ImageSource))
                     return;
             }
 
-            if (Tiles[goX, goY].Kleur != Colors.Blue)
+            if (Equals(((ImageBrush)Tiles[goX, goY].Kleur).ImageSource, blauw.ImageSource))
                 OutOfOriginalLake = true;
 
-            Tiles[goX, goY].Kleur = Colors.Blue;
+            Tiles[goX, goY].Kleur = blauw;
 
             if (!((goDirection == 0 || goDirection == 2) && goY == grens) &&
                 !((goDirection == 1 || goDirection == 3) && goX == grens))
