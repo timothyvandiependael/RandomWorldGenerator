@@ -28,10 +28,9 @@ namespace RandomWorldGenerator
 
         private ImageBrush blauw;
 
+        // Generate map grid in scrollviewer based on user parameters from startup window
         public RandomWorldGeneratorWindow GenerateMapGrid()
         {
-
-            // Generate map grid in scrollviewer based on user parameters
 
             RandomWorldGeneratorWindow generatedWorld = new RandomWorldGeneratorWindow();
             CurrentWorld = new World(TxtName.Text, (int)SldHeight.Value, (int)SldWidth.Value, (int)SldTileSize.Value, (int)SldBiomeSize.Value);
@@ -88,6 +87,7 @@ namespace RandomWorldGenerator
 
         }
 
+        // Read partial image from image file containing map tiles
         private ImageBrush GenerateMapTileImage(int x, int y)
         {
             TileReader test = new TileReader(new System.Drawing.Bitmap(@"..\..\img\tilea5.png"), 512, 256, 8, 16);
@@ -99,19 +99,13 @@ namespace RandomWorldGenerator
             return im;
         }
 
+        // Create center points on the map which will receive a random terrain type and which will serve as centres for biomes
         public void GenerateEmptyTilesAndCenterPoints()
         {
             Tiles = new Tile[CurrentWorld.Width, CurrentWorld.Height];
             CenterTiles = new Tile[CurrentWorld.Width, CurrentWorld.Height];
 
             Brushes = new List<Brush>();
-
-            //Brushes.Add(new SolidColorBrush(Colors.Yellow));
-            //Brushes.Add(new SolidColorBrush(Colors.Green));
-            //Brushes.Add(new SolidColorBrush(Colors.LawnGreen));
-            //Brushes.Add(new SolidColorBrush(Colors.Brown));
-            //Brushes.Add(new SolidColorBrush(Colors.Blue));
-            //Brushes.Add(new SolidColorBrush(Colors.White));
 
             blauw = GenerateMapTileImage(7, 2);
 
@@ -161,6 +155,7 @@ namespace RandomWorldGenerator
             }
         }
 
+        // Tiles will receive the terrain type of the closest center point
         public void FillTilesBasedOnCenterPoints()
         {
             for (int x = 0; x < CurrentWorld.Width; x++)
@@ -225,6 +220,7 @@ namespace RandomWorldGenerator
             }
         }
 
+        // Add random rivers to the map
         public void AddRiversToMap()
         {
 
@@ -247,6 +243,7 @@ namespace RandomWorldGenerator
             } 
         }
 
+        // Draw one river which will flow in random directions
         public void DrawRiver(Tile startTile, int sourceDirection, int originalSourceDirection, int x, int y)
         {
 

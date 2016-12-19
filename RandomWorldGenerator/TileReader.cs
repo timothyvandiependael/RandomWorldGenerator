@@ -15,6 +15,8 @@ using Image = System.Windows.Controls.Image;
 
 namespace RandomWorldGenerator
 {
+
+    // Class used to read tiles from image
     public class TileReader
     {
         public Bitmap Image { get; set; }
@@ -40,7 +42,7 @@ namespace RandomWorldGenerator
             Tiles = new Bitmap[TilesX, TilesY];
         }
 
-
+        // Put the different parts of the image which contains the map tiles in a multidimensional array
         public void ListTilesFromImage()
         {
 
@@ -61,20 +63,11 @@ namespace RandomWorldGenerator
             }
         }
 
-        public BitmapSource BitmapToImage(Bitmap bitmap)
-        {
-            BitmapSource i = Imaging.CreateBitmapSourceFromHBitmap(
-                bitmap.GetHbitmap(),
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
-
-            return i;
-        }
-
+        // Dispose of object
         [DllImport("gdi32")]
         static extern int DeleteObject(IntPtr o);
 
+        // Load BitmapSource from Bitmap, to be used in the UI
         public BitmapSource LoadBitmap(System.Drawing.Bitmap source)
         {
             IntPtr ip = source.GetHbitmap();

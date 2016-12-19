@@ -27,6 +27,7 @@ namespace RandomWorldGenerator
             InitializeComponent();
         }
 
+        // Clicking the button will open a new window with a randomly generated map
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
 
@@ -41,6 +42,7 @@ namespace RandomWorldGenerator
 
         }
 
+        // When 'R' key is pressed in the window of the generated map, another map will be generated
         private void GeneratedWorldWindowOnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.R)
